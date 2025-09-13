@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request, HTTPException
 import random
 import time
+import os
 
 app = FastAPI()
 
@@ -8,12 +9,11 @@ app = FastAPI()
 # 1. Táctica de Replicación
 # =============================
 # Simulamos múltiples "réplicas" de la app que pueden responder.
-replicas = ["Replica-1", "Replica-2", "Replica-3"]
+replica_name = os.getenv("REPLICA_NAME", "Replica-desconocida")
 
 @app.get("/replica")
 def get_replica():
-    replica = random.choice(replicas)
-    return {"message": f"Respuesta servida por {replica}"}
+    return {"message": f"Respuesta dada por {replica_name}"}
 
 
 # =============================
