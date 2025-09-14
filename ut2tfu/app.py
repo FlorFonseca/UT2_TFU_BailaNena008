@@ -65,7 +65,7 @@ def secure_data(request: Request):
     key = request.headers.get("x-api-key")
     if key != API_KEY:
         raise HTTPException(status_code=401, detail="Unauthorized")
-    return {"secure": "Esta es información protegida con API Key"}
+    return {"secure": "Esta es información protegida con una Key"}
 
 
 # =============================
@@ -73,7 +73,7 @@ def secure_data(request: Request):
 # =============================
 @app.get("/")
 def root():
-    return {"message": "Hola UT2, API funcionando con tácticas!"}
+    return {"message": "Funcoinaaa!"}
 
 @app.get("/ping")
 def ping():
