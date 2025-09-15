@@ -5,9 +5,8 @@ import os
 
 app = FastAPI()
 
-# =============================
 # 1. Táctica de Replicación
-# =============================
+
 # Simulamos múltiples "réplicas" de la app que pueden responder.
 replica_name = os.getenv("REPLICA_NAME", "Replica-desconocida")
 
@@ -16,9 +15,8 @@ def get_replica():
     return {"message": f"Respuesta dada por {replica_name}"}
 
 
-# =============================
 # 2. Táctica de Reintentos
-# =============================
+
 # Simula un endpoint que a veces falla, y reintentamos hasta 3 veces.
 @app.get("/unstable")
 def unstable_endpoint():
@@ -29,9 +27,9 @@ def unstable_endpoint():
     raise HTTPException(status_code=500, detail="Falló después de 3 intentos")
 
 
-# =============================
+
 # 3. Seguridad - Rate Limiting
-# =============================
+
 # Evita que un cliente haga demasiadas requests en poco tiempo.
 from collections import defaultdict
 from time import time as now
@@ -55,9 +53,9 @@ async def rate_limit(request: Request, call_next):
     return await call_next(request)
 
 
-# =============================
+
 # 4. Seguridad - Validación API Key
-# =============================
+
 API_KEY = "secreta123"
 
 @app.get("/secure-data")
@@ -68,9 +66,9 @@ def secure_data(request: Request):
     return {"secure": "Esta es información protegida con API Key"}
 
 
-# =============================
+
 # Rutas básicas
-# =============================
+
 @app.get("/")
 def root():
     return {"message": "Hola UT2, API funcionando con tácticas!"}
